@@ -4,6 +4,7 @@ from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.concurrency import run_in_threadpool
 
+from app.core.auth import auth_http_middleware
 from app.core.config import get_settings
 from app.services.lme_market_card_parser import extract_lme_market_card
 from app.services.tesseract_setup import configure_tesseract
@@ -19,6 +20,8 @@ app.add_middleware(
     allow_methods=settings.cors_allow_methods,
     allow_headers=settings.cors_allow_headers,
 )
+
+app.middleware("http")(auth_http_middleware)
 
 
 @app.on_event("startup")

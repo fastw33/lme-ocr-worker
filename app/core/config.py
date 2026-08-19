@@ -29,6 +29,9 @@ class Settings:
     cors_allow_methods: list[str] = _csv_env("CORS_ALLOW_METHODS")
     cors_allow_headers: list[str] = _csv_env("CORS_ALLOW_HEADERS")
     cors_allow_credentials: bool = _bool_env("CORS_ALLOW_CREDENTIALS")
+    jwt_secret: str = os.getenv("JWT_SECRET", "")
+    internal_service_key: str = os.getenv("INTERNAL_SERVICE_KEY", "")
+    auth_public_paths: list[str] = _csv_env("AUTH_PUBLIC_PATHS") or ["/health"]
     tesseract_cmd: str = os.getenv("TESSERACT_CMD", "")
     tessdata_prefix: str = os.getenv("TESSDATA_PREFIX", "")
     max_upload_bytes: int = int(os.getenv("MAX_UPLOAD_BYTES", str(10 * 1024 * 1024)))
